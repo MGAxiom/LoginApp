@@ -47,6 +47,7 @@ public class WelcomePage extends Fragment {
 
                 if (email.equals("email@gmail.com") && password.equals("openclassroom123")) {
                     Toast.makeText(getContext(), "Login successful", Toast.LENGTH_SHORT).show();
+                    ((MainActivity) getActivity()).setEditText(username);
                 } else {
                     Toast.makeText(getContext(), "Invalid email or password", Toast.LENGTH_SHORT).show();
                 }
