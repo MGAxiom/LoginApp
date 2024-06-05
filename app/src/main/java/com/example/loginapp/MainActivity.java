@@ -8,17 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.loginapp.databinding.ActivityMainBinding;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
-    private String mEditText;
-
-    public String getEditText(){
-        return mEditText;
-    }
-
-    public void setEditText(String et){
-        this.mEditText = et;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,5 +19,7 @@ public class MainActivity extends AppCompatActivity {
         //setContentView(R.layout.activity_main);
         ActivityMainBinding binding = ActivityMainBinding.inflate(LayoutInflater.from(this));
         setContentView(binding.getRoot());
+
+        ArrayList<>
     }
 }

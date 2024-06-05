@@ -17,6 +17,25 @@
         android:padding="5dp"
         android:textAlignment="center"
         android:visibility="visible"
+        tools:visibility="invisible"/>
+
+    <Button
+        android:id="@+id/showListButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show contact list"
+        android:textSize="16sp"
+        android:layout_margin="16dp"
+        android:paddingHorizontal="24dp"
+        android:visibility="visible"
+        tools:visibility="invisible"/>
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
         tools:visibility="visible"/>
+
 
 </LinearLayout>
