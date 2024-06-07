@@ -16,16 +16,13 @@ public class WelcomePage extends Fragment {
 
     private FragmentWelcomePageBinding binding;
 
-    MessagePage messagePageFragment = new MessagePage();
-
-    public static MessagePage newInstance(String data2){
+    public static MessagePage newInstance(String data){
         MessagePage messagePageFragment = new MessagePage();
         Bundle bundle = new Bundle();
-        bundle.putString("key",data2);
+        bundle.putString("key",data);
         messagePageFragment.setArguments(bundle);
         return messagePageFragment;
     }
-    Bundle bundle = new Bundle();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,7 +34,8 @@ public class WelcomePage extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //binding.loginButton.setEnabled(false);
+        Bundle bundle = new Bundle();
+
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,12 +44,10 @@ public class WelcomePage extends Fragment {
                 String email = binding.emailEditText.getText().toString();
                 String password = binding.passwordEditText.getText().toString();
 
-                if (email.equals("email@gmail.com") && password.equals("123")) {
+                if (email.equals("@") && password.equals("123")) {
                     Toast.makeText(getContext(), "Login successful", Toast.LENGTH_SHORT).show();
                     FragmentManager fragmentManager = getParentFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                    bundle.putString("name", username);
-//                    messagePageFragment.setArguments(bundle);
                     fragmentTransaction.replace(R.id.container, newInstance(username));
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();

@@ -1,54 +1,41 @@
 package com.example.loginapp;
 
-import static java.sql.DriverManager.println;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ListView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.loginapp.Contacts.Adapter;
+import com.example.loginapp.Contacts.Contact;
+import com.example.loginapp.Contacts.ListData;
 import com.example.loginapp.databinding.FragmentMessagePageBinding;
-import com.example.loginapp.databinding.FragmentWelcomePageBinding;
+
+import java.util.ArrayList;
 
 
 public class MessagePage extends Fragment {
-
-    public static MessagePage newInstance() {
-        MessagePage fragment = new MessagePage();
-        return fragment;
-    }
     private @NonNull FragmentMessagePageBinding binding;
-    Bundle mBundle = this.getArguments();
+    String name = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle text = getArguments();
+        name = text.getString("key");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        String name = null;
-        // Inflate the layout for this fragment
-        if( mBundle != null ){
-            name = mBundle.getString("key");
-            println(name);
-        }
-        println(String.valueOf(mBundle));
         binding = FragmentMessagePageBinding.inflate(inflater, container, false);
-        binding.infoMessage.setText("Hello " + name + " you've succesufully logged in!");
+        binding.infoMessage.setText("Hello " + name + " you've successfully logged in!");
         return binding.getRoot();
-
-//        View inf = inflater.inflate(R.layout.fragment_message_page, container, false);
-//        TextView textView = (TextView) inf.findViewById(R.id.infoMessage);
-//        textView.setText("Hello " + name + " you've succesufully logged in!");
-//        return inf;
-
     }
 
     @Override
@@ -58,9 +45,21 @@ public class MessagePage extends Fragment {
 
             @Override
             public void onClick(View v) {
-                binding.listView.setVisibility(View.VISIBLE);
-                binding.infoMessage.setVisibility(View.INVISIBLE);
+                if (binding.recycleView.getVisibility() != View.VISIBLE) {
+                    binding.recycleView.setVisibility(View.VISIBLE);
+                }
+                binding.showListButton.setText("Reset list");
+                binding.infoMessage.setText(name + ", here's your list of contacts:");
+                loadList(view);
             }
         });
        }
+
+       void loadList(View view) {
+        ArrayList<Contact> contactList = ListData.getContactData();
+        Adapter itemAdapter = new Adapter(contactList);
+        RecyclerView recyclerView = view.findViewById(R.id.recycleView);
+        recyclerView.setLayoutManager( new LinearLayoutManager(getContext()) );
+        recyclerView.setAdapter(itemAdapter);
+    }
 }
